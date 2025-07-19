@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Datalogue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="home.css" />
+</head>
+<body>
+     <script src="script.js"></script>
+  <div class="container">
+     <h1 id="title">Welcome to <span class="title-span">HyperGrapher</span>!</h1>
+        <p id="description">The only data visualizer you'll ever need</p>
+
+    <div id="app-section">
+        <div class="main-container">
+      <div class="input-section">
+        <p>Enter Data To Be Visualized</p>
+        <input type="text" id="single-label" placeholder="Label (e.g., A)" />
+        <input type="number" id="single-value" placeholder="Value (e.g., 10)" />
+        <button id="datapoint" onclick="addDataPoint()">Add Data Point</button>
+      </div>
+
+    <table id="data-table" class="data-table">
+  <thead id="table-header" style="display: none;">
+    <tr>
+      <th style="border: 1px solid #ccc; padding: 6px;">Label</th>
+      <th style="border: 1px solid #ccc; padding: 6px;">Value</th>
+      <th style="border: 1px solid #ccc; padding: 6px;">Action</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+        </div>
+    <div class="chart-box">
+      <h2>Select Chart Types</h2>
+   <div class="checkbox-group">
+    <label><input type="checkbox" name="chartType" value="pie" /> <i class="fas fa-chart-pie"></i> Pie Chart</label>
+    <label><input type="checkbox" name="chartType" value="bar" /> <i class="fas fa-chart-bar"></i> Bar Chart</label>
+    <label><input type="checkbox" name="chartType" value="line" /> <i class="fas fa-chart-line"></i> Line Chart</label>
+    <label><input type="checkbox" name="chartType" value="doughnut" /> <i class="fas fa-circle-notch"></i> Doughnut Chart</label>
+  
+   </div>
+      <button onclick="submitData()">Submit</button>
+    </div>
+  </div>
+
+  <!-- Your JS logic -->
+ 
+      <script>
+window.addEventListener("DOMContentLoaded", () => {
+  const username = localStorage.getItem("currentUser");
+  const savedLabels = JSON.parse(localStorage.getItem(`${username}_labels`)) || [];
+  const savedValues = JSON.parse(localStorage.getItem(`${username}_values`)) || [];
+
+  const tableBody = document.querySelector("#data-table tbody");
+  tableBody.innerHTML = ""; // clear existing
+
+  if (savedLabels.length > 0 && savedLabels.length === savedValues.length) {
+    for (let i = 0; i < savedLabels.length; i++) {
+      const row = document.createElement("tr");
+
+      const labelCell = document.createElement("td");
+      const labelInput = document.createElement("input");
+      labelInput.type = "text";
+      labelInput.value = savedLabels[i];
+      labelInput.className = "label-input";
+      labelCell.appendChild(labelInput);
+
+      const valueCell = document.createElement("td");
+      const valueInput = document.createElement("input");
+      valueInput.type = "number";
+      valueInput.value = savedValues[i];
+      valueInput.className = "value-input";
+      valueCell.appendChild(valueInput);
+
+      const deleteCell = document.createElement("td");
+      const deleteBtn = document.createElement("button");
+      deleteBtn.innerText = "Delete";
+      deleteBtn.onclick = () => row.remove();
+      deleteCell.appendChild(deleteBtn);
+
+      row.appendChild(labelCell);
+      row.appendChild(valueCell);
+      row.appendChild(deleteCell);
+      tableBody.appendChild(row);
+    }
+  }
+});
+</script>
+
+</body>
+
+</html>
