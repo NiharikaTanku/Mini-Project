@@ -1,0 +1,145 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chart Result</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      text-align: center;
+      font-family: sans-serif;
+      background: #f9f9f9;
+    }
+
+    canvas {
+      width: 400px !important;
+      height: 300px !important;
+      display: block;
+      margin: 30px auto;
+      border: 1px solid #ccc;
+      background: white;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      background-color: #6366f1;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4338ca;
+    }
+    
+  </style>
+</head>
+<body>
+  <h1>Thanks for using <span>HyperGrapher</span>!</h1>
+  <p>Here is your data visualized:</p>
+
+  <!-- Add container to hold multiple charts -->
+  <div id="charts-container"></div>
+   <div id="summary-box" style="margin: 80px auto 30px auto; font-size: 18px; font-weight: bold;"></div>
+
+  
+   <link rel="stylesheet" href="copy.css">
+
+
+  <script>
+      const username = localStorage.getItem("currentUser");
+
+const labelInputs = document.querySelectorAll(".label-input");
+const valueInputs = document.querySelectorAll(".value-input");
+
+const labels = Array.from(labelInputs).map(input => input.value);
+const values = Array.from(valueInputs).map(input => parseFloat(input.value));
+const chartTypes = Array.from(document.querySelectorAll("input[name='chartType']:checked")).map(el => el.value);
+
+// Save in localStorage
+localStorage.setItem(`${username}_labels`, JSON.stringify(labels));
+localStorage.setItem(`${username}_values`, JSON.stringify(values));
+localStorage.setItem(`${username}_chartTypes`, JSON.stringify(chartTypes));
+
+    const labels = JSON.parse(localStorage.getItem("labels"));
+    const values = JSON.parse(localStorage.getItem("values"));
+    const chartTypes = JSON.parse(localStorage.getItem("chartTypes"));
+
+   
+    chartTypes.forEach((type, index) => {
+      const chartWrapper = document.createElement("div");
+      
+// Add this class
+
+
+
+      const canvas = document.createElement("canvas");
+      canvas.id = `chart-${index}`;
+      canvas.width = 400;
+      canvas.height = 200;
+
+      const downloadBtn = document.createElement("button");
+      downloadBtn.innerText = `Download ${type} Chart`;
+      downloadBtn.onclick = () => downloadChart(canvas.id, `${type}-chart`);
+     const container = document.getElementById("charts-container");
+
+      chartWrapper.appendChild(canvas);
+      chartWrapper.appendChild(downloadBtn);
+      container.appendChild(chartWrapper);
+
+      new Chart(canvas.getContext("2d"), {
+        type: type,
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Your Data',
+            data: values,
+            backgroundColor: [
+              '#FF6384', '#36A2EB', '#FFCE56',
+              '#4BC0C0', '#9966FF', '#FF9F40'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: type !== "bar"
+            }
+          }
+        }
+      });
+    });
+   
+    
+    function showSummaryStats() {
+  if (!values || values.length === 0) return;
+
+  const total = values.reduce((acc, val) => acc + val, 0);
+  const average = total / values.length;
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+
+  document.getElementById("summary-box").innerHTML = `
+    🔍 <b>Total:</b> ${total} &nbsp;&nbsp;
+    📊 <b>Average:</b> ${average.toFixed(2)} &nbsp;&nbsp;
+    📉 <b>Min:</b> ${min} &nbsp;&nbsp;
+    📈 <b>Max:</b> ${max}
+  `;
+}
+
+showSummaryStats();
+    function downloadChart(canvasId, filename) {
+      const canvas = document.getElementById(canvasId);
+      const url = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename + ".png";
+      link.click();
+    }
+    
+  </script>
+</body>
+</html>
