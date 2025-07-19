@@ -1,0 +1,84 @@
+body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  background-color: #13005A;
+  color: #ececee;
+  font-family: monospace;
+  font-size: 18px;
+  background: radial-gradient(100% 225% at 100% 0%, #FF0000 0%, #000000 100%), linear-gradient(236deg, #00C2FF 0%, #000000 100%), linear-gradient(135deg, #CDFFEB 0%, #000000 36%, #009F9D 36%, #009F9D 60%, #07456F 60%, #07456F 67%, #0F0A3C 67%, #0F0A3C 100%);
+  background-blend-mode: overlay, hard-light, normal;
+  /* background: linear-gradient(115deg, #FF9797 0%, #0F0068 100%), linear-gradient(245deg, #A8FFE5 0%, #0500FF 100%), radial-gradient(100% 225% at 100% 0%, #FF003D 0%, #000000 100%), radial-gradient(90% 160% at 0% 100%, #E42C64 0%, #E42C64 30%, #614AD3 calc(30% + 1px), #614AD3 60%, #2D248A calc(60% + 1px), #2D248A 70%, #121B74 calc(70% + 1px), #121B74 100%), linear-gradient(100deg, #48466F 9%, #48466D 35%, #3D84A8 calc(35% + 1px), #3D84A8 65%, #46CDCF calc(65% + 1px), #46CDCF 70%, #000000 calc(70% + 1px), #000000 100%);
+  background-blend-mode: overlay, overlay, overlay, overlay, normal; */
+}
+h1, p {
+  margin: 1em auto;
+  text-align: center;
+  font-family: Segoe UI;
+  text-shadow: 2px 2px 4px #000000;
+}
+span {
+    color: #03C988;
+}
+h1 {
+  margin-bottom: 20px;
+}
+
+fieldset{
+border: 3px hidden;
+  border-radius: 10px;
+  margin: 0px;
+  padding: 2rem 10px;
+  background-color: #03C988;
+  background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+form{
+    max-width: 700px;
+  min-width: 300px;
+  margin: 0 auto;
+  padding-bottom: 2em;
+}
+input,textarea,select {
+  margin: 10px 0 0 0;
+  width: 100%;
+  min-height: 2.5em;
+  border: 3px hidden;
+  border-radius: 3px;
+}
+
+select:hover, textarea:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  margin-left: 150px;
+  background: #181D31;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #0d45a5;
+}
+
+input[type="submit"] {
+    width: 40%;
+    margin: 1em auto;
+    height: 2em;
+    margin-left: 330px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    background-color: #181D31;
+    color: white;
+    font-family: monospace;
+    min-width: 300px;
+    cursor: pointer;    
+}
+.login{
+   text-align: center;
+}
